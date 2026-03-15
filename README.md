@@ -18,7 +18,7 @@ I spent a lot of time studying how teams at Anthropic, OpenAI, and Perplexity ac
 
 This system is my attempt to codify that approach. It combines what I learned from studying those workflows with what I've picked up from 10+ years of doing the work myself: building design systems with governance that sticks across squads, creating critique cultures that outlast any single person, and finding ways to bring non-design stakeholders into real decisions instead of just review meetings.
 
-I use AI as a daily collaborator in research, documentation, prototyping, and development. I also have hands-on experience designing agentic and conversational AI in regulated environments, where responsible AI (trust signals, uncertainty expression, source transparency) is a design problem, not a compliance checkbox. That perspective shaped every part of this system, especially the emphasis on evidence traceability and disconfirming evidence.
+I use AI as a daily collaborator in research, documentation, prototyping, and development. That perspective shaped every part of this system, especially the emphasis on evidence traceability and disconfirming evidence.
 
 **This is not a finished product.** It's an opinionated starting point. My take on what AI-native product discovery looks like right now. The field is moving fast, and I expect this system to evolve with it.
 
@@ -267,6 +267,7 @@ These principles are encoded in the skills and enforced throughout the workflow:
 product-design-process/
 ├── README.md                                  ← You are here
 ├── CLAUDE.md                                  ← Claude Code config for this repo
+├── LICENSE                                    ← CC BY 4.0
 ├── setup.sh                                   ← Installs skills globally via symlinks
 ├── .gitignore                                 ← Excludes generated files
 │
@@ -275,19 +276,12 @@ product-design-process/
 │   ├── scaffold/SKILL.md                      ← Project scaffolding
 │   └── dashboard/SKILL.md                     ← Project progress dashboard generator
 │
-├── templates/                                 ← Skeleton templates (copied into projects by scaffold)
-│   ├── discovery/       (13 templates)        ← Research artifacts
-│   ├── definition/      (4 templates)         ← Product requirements
-│   ├── prototyping/     (3 templates)         ← Prototype specs
-│   ├── iteration/       (2 templates)         ← Iteration tracking
-│   └── project/         (3 templates)         ← AGENTS.md, CLAUDE.md, stakeholder-brief
-│
-├── docs/
-│   └── decisions/                             ← Design decisions for this system
-│       ├── 2026-03-15-workflow-redesign-design.md
-│       └── 2026-03-15-dashboard-design.md
-│
-└── AI-Native-Product-Designer-Research.md     ← Research foundation document
+└── templates/                                 ← Skeleton templates (copied into projects by scaffold)
+    ├── discovery/       (13 templates)        ← Research artifacts
+    ├── definition/      (4 templates)         ← Product requirements
+    ├── prototyping/     (3 templates)         ← Prototype specs
+    ├── iteration/       (2 templates)         ← Iteration tracking
+    └── project/         (3 templates)         ← AGENTS.md, CLAUDE.md, stakeholder-brief
 ```
 
 **This repo is the source of truth for skills and templates.** Your product projects live in separate folders. The symlinks created by `setup.sh` point from `~/.claude/skills/` back to this repo, so any edits you make here take effect immediately.
@@ -347,20 +341,9 @@ Template files contain `[Project Name]`, `YYYY-MM-DD`, and similar placeholders.
 
 ---
 
-## Design Decisions
-
-The reasoning behind this system's design is documented in:
-
-- `docs/decisions/2026-03-15-workflow-redesign-design.md` — 13 key decisions about the workflow system architecture
-- `docs/decisions/2026-03-15-dashboard-design.md` — 8 decisions about the dashboard feature
-
----
-
 ## Research Background
 
 This system is based on research into how leading AI companies (Anthropic, OpenAI, Perplexity) actually build products, the evolving role of the product designer in 2026, and AI-native workflow patterns.
-
-See `AI-Native-Product-Designer-Research.md` for the full research document.
 
 ---
 

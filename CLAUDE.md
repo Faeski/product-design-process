@@ -13,7 +13,6 @@ A set of Claude Code skills and project templates that encode a structured produ
 **This repo contains:**
 - `skills/` — Claude Code skill definitions (the core product)
 - `templates/` — Markdown skeletons copied into projects by the scaffold skill
-- `docs/decisions/` — Design decision records for this system
 - `setup.sh` — Installer that creates symlinks to `~/.claude/skills/`
 
 **This repo does NOT contain:**
@@ -42,9 +41,6 @@ product-design-process/
     prototyping/               # 3 prototyping templates
     iteration/                 # 2 iteration templates
     project/                   # AGENTS.md, CLAUDE.md, stakeholder-brief templates
-  docs/
-    decisions/                 # Design decision records
-  AI-Native-Product-Designer-Research.md  # Research foundation
 ```
 
 ---
@@ -69,9 +65,9 @@ product-design-process/
 
 ### Documentation
 
-- Design decisions go in `docs/decisions/` with the naming pattern `YYYY-MM-DD-<topic>.md`
 - The README.md is the primary user-facing document. Keep it focused on "how to use" rather than "how it works internally."
 - Inline code comments in skill files explain the _why_, not the _what_
+- The `docs/` folder is local-only (gitignored) and contains private design decisions and blog drafts
 
 ### Git
 
@@ -88,7 +84,7 @@ product-design-process/
 - **Do not** modify `setup.sh` without updating the uninstall instructions in README.md
 - **Do not** commit `dashboard.html` or any generated project artifacts
 - **Do not** change the `skills/<name>/SKILL.md` directory structure — the symlinks depend on it
-- **Do not** add new top-level directories without a documented reason in `docs/decisions/`
+- **Do not** add new top-level directories without discussing the reasoning first
 
 ---
 
@@ -100,7 +96,7 @@ product-design-process/
 2. Add the symlink line to `setup.sh`
 3. Update the uninstall comment in `setup.sh`
 4. Add the skill to the README's skills table
-5. Document the design in `docs/decisions/`
+5. Document the design rationale (in the skill file or a local docs/ file)
 
 ### Modifying a template
 

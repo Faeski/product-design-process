@@ -1,6 +1,9 @@
 # Generated files
 dashboard.html
 
+# Private documentation (local only, not published)
+docs/
+
 # Working/reference documents (not part of the package)
 *.pdf
 

@@ -1,0 +1,19 @@
+# Generated files
+dashboard.html
+
+# Working/reference documents (not part of the package)
+*.pdf
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

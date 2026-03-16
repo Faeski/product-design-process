@@ -4,10 +4,14 @@
 
 - **Discovery (4-8 hours)** — Frame the problem, research the landscape, synthesize evidence, and decide whether to proceed, pivot, or stop
 - **Definition** — Translate validated insights into a PRD, metrics plan, risk register, and decision log
+- **Design (1-3 days)** — Information architecture, interaction design, visual direction, content strategy, accessibility, and technical feasibility — with design critique checkpoints throughout
 - **Prototyping (2-4 weeks)** — Build the cheapest testable artifact, define design tokens, and run rigorous usability tests
+- **Design QA** — Validate that the prototype matches the design specification before testing
 - **Iteration (continuous)** — Capture findings, update hypotheses, and feed learnings back into the next cycle
 
-Key principles throughout: every insight must trace to a source, disconfirming evidence is mandatory, all phases always run (depth scales, not presence), and designers decide while AI executes.
+Key principles throughout: every insight must trace to a source, disconfirming evidence is mandatory, all phases always run (depth scales, not presence), designers decide while AI executes, and accessibility is a lens applied at every phase — not deferred to production.
+
+> For a detailed gap analysis of disciplines that were previously missing and how they fit into the AI-assisted workflow, see [DESIGN-PHASE-GAPS.md](DESIGN-PHASE-GAPS.md).
 
 ---
 
@@ -67,6 +71,73 @@ Structured Architecture Decision Records (ADRs) capture *why*, not just *what*:
 
 ---
 
+### Design: Structure, Behavior, and Craft
+
+The design phase bridges the gap between "we know what to build" (Definition) and "let's build a testable thing" (Prototyping). These disciplines run in parallel, inform each other, and are reviewed via structured design critique before prototyping begins.
+
+#### Information Architecture
+
+Defines how information is organized, labeled, and navigated:
+
+- **Sitemap and navigation structure** — Top-level navigation model, depth limits, mobile patterns, and cross-linking strategy
+- **Content model** — Core objects/entities, their relationships, and how they map to screens
+- **Taxonomy and labeling** — Category names validated against user mental models, label glossary, search vs. browse strategy
+- **Page-level structure** — Key page types (list, detail, form, dashboard), content priority per type, shared layout patterns
+
+#### Interaction Design
+
+Defines how the interface behaves in response to user actions — not just the happy path:
+
+- **Detailed user flows** — Step-by-step flows including decision points, error paths, and edge cases (first-time use, empty data, expired sessions, permission denied)
+- **State inventory** — For each key screen: default, loading, empty, populated, error, disabled, hover, focus, active states
+- **Micro-interactions** — Screen transitions, feedback patterns (optimistic updates, spinners, confirmations), destructive action confirmations, undo patterns
+- **Form behavior** — Inline vs. submit-time validation, field dependencies, autosave strategy, multi-step progression
+- **Responsive behavior** — Specific layout changes at each breakpoint, touch targets, gesture support
+
+#### Visual Design Direction
+
+Establishes what the product should *feel like* before design tokens are finalized:
+
+- **Visual direction brief** — Brand personality attributes, reference and anti-reference products, audience aesthetic expectations
+- **Mood board / style tile** — Color palette exploration, typography pairings, imagery style, density strategy, motion tone
+- **Brand alignment check** — Mapping to existing brand guidelines, intentional divergences with rationale, stakeholder sign-off
+
+#### Content Design
+
+Defines what the product *says* to users:
+
+- **Voice and tone framework** — Product voice attributes, tone shifts by context (onboarding, errors, success, settings), vocabulary principles
+- **Content patterns** — Button labels, form help text, error messages (what happened + why + what to do), empty states, confirmation dialogs, notifications
+- **Microcopy specifications** — Per-screen copy specs for key flows, character limits, localization considerations
+
+#### Accessibility
+
+Applied as a lens across all design disciplines, not deferred to production:
+
+- **Color and contrast** — All combinations validated against WCAG AA ratios, color never used as sole information carrier
+- **Keyboard and focus** — Full keyboard operability, visible focus indicators, logical focus order, skip navigation
+- **Screen reader compatibility** — Semantic HTML structure, ARIA labels, live regions, image alt text strategy
+- **Motor and cognitive** — Touch target minimums (44x44px), adequate spacing, no time limits without user control, reduced motion support
+
+#### Technical Feasibility Review
+
+Engineering validates that the design is buildable within actual constraints:
+
+- **API and data review** — Required data availability, new endpoints needed, latency expectations
+- **Performance budget** — Load time targets, bundle size constraints, animation frame rate targets
+- **Build vs. buy** — For each major capability: custom, library, or third-party service
+
+#### Design Critique Checkpoints
+
+Structured peer review at phase boundaries — not just AI blind-spot detection:
+
+- **IA review** — After sitemap and content model are drafted
+- **Interaction review** — After flows and states are documented
+- **Visual review** — After design direction is established
+- **Pre-test review** — Before usability testing begins
+
+---
+
 ### Prototyping: Build the Cheapest Testable Thing
 
 Prototyping is hypothesis-driven. The goal is not to build a feature — it is to answer a question as cheaply as possible.
@@ -116,6 +187,18 @@ Rigorous usability testing with a scientific structure:
 
 ---
 
+### Design QA: Validate Before Testing
+
+Once a prototype is built, design QA ensures the spec was implemented correctly before putting it in front of users:
+
+- **Token compliance** — Every color, font, spacing, shadow, and radius uses a design token (no hardcoded values)
+- **Component inventory** — Every unique component mapped to design tokens and interaction specs
+- **Responsive validation** — Layout tested at key breakpoints with real content, not just placeholder
+- **Accessibility scan** — Automated check (axe, Lighthouse) run on the prototype before user testing
+- **Content review** — All copy matches the content specs; no placeholder text left in testable flows
+
+---
+
 ### Iteration: Learn, Update, Repeat
 
 Each iteration cycle produces an **iteration brief** that captures what happened and feeds it forward.
@@ -140,21 +223,38 @@ A structured roll-up of all feedback sources (usability tests, stakeholder revie
 ### How the Phases Connect
 
 ```
-Discovery ──GO──► Definition ◄──────────────────┐
+Discovery ──GO──► Definition
+                     │
+                     ├──► Information Architecture
+                     ├──► Visual Design Direction
+                     ├──► Content Strategy & Voice
+                     ├──► Technical Feasibility Review
+                     │         │
+                     │    Design Critique ◄── (review checkpoint)
+                     │         │
+                     ▼         ▼
+                  Interaction Design
+                  (flows, states, content specs)
+                     │
+                Design Critique ◄── (review checkpoint)
+                     │
+                     ▼
+               Prototyping ◄────────────────────┐
                      │                           │
-                     ▼                           │
-               Prototyping                       │
+                Design QA                        │
                      │                           │
                      ▼                           │
                  Testing                         │
                      │                           │
                      ▼                           │
-                Iteration ──(update findings)────┘
+                Iteration ──(update all artifacts)┘
                      │
                      ▼
               Ship or Next Cycle
 ```
 
+Accessibility runs as a lens across IA, Interaction Design, Visual Design, Content Design, and Design QA — with checkpoints at each phase boundary.
+
 Definition documents are updated continuously as prototyping and iteration reveal new information. The PRD is not a spec that gets written once — it is a living artifact that absorbs evidence from every test cycle. The decision log grows with each iteration. The risk register is reviewed at each checkpoint. Metrics are refined as real data replaces assumptions.
 
-This tight loop — build, test, learn, update — continues until the team has enough confidence (backed by evidence, not opinion) to ship.
+This tight loop — design, build, test, learn, update — continues until the team has enough confidence (backed by evidence, not opinion) to ship.
